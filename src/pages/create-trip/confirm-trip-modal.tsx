@@ -25,7 +25,7 @@ export function ConfirmTripModal({ closeConfirmTripModal, createTrip }: ConfirmT
                     </p>
                 </div>
 
-                <form onClick={createTrip} className='space-y-3'>
+                <form className='space-y-3' onSubmit={createTrip}>
                     <div className='h-14 px-4 bg-zinc-950 border border-zinc-800 rounded-lg flex items-center gap-2'>
                         <User className='text-zinc-400 size-5' />
                         <input
