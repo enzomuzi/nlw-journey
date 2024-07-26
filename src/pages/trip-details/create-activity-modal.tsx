@@ -15,21 +15,23 @@ export function CreateActivityModal({ closeCreateActivityModal }: CreateActivity
         event.preventDefault();
 
         const data = new FormData(event.currentTarget);
-
         const title = data.get("title")?.toString();
-        const occurs_at = data.get("occurs_at")?.toString();
 
-        await api.post(
-            `
-/trips/${tripId}/activities`,
-            {
+        const date = new Date(data.get("occurs_at")?.toString());
+        const occurs_at = date.toISOString();
+
+        try {
+            const response = await api.post(`/trips/${tripId}/activities`, {
                 title,
                 occurs_at,
-            },
-        );
-
-        window.document.location.reload();
+            });
+            window.document.location.reload();
+            console.log("Activity created:", response.data);
+        } catch (error) {
+            console.error("Error creating activity:", error);
+        }
     }
+
     return (
         <div className='fixed inset-0 bg-black/60 flex items-center justify-center'>
             <div className='w-[640px] rounded-xl py-5 px-6 shadow-shape bg-zinc-900 space-y-5'>
